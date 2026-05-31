@@ -25,9 +25,17 @@ SRC		=	ft_atoi.c	ft_itoa.c	ft_memcmp.c	ft_split.c	ft_strmapi.c \
 BONUS	=	ft_lstnew.c	ft_lstadd_front.c	ft_lstsize.c	ft_lstlast.c	ft_lstadd_back.c \
 	ft_lstiter.c	ft_lstdelone.c	ft_lstmap.c	ft_lstclear.c
 
+SRC_DIR = src
+OBJ_DIR = src/obj
+
 OBJ	=	$(SRC:.c=.o)
 BONUSOBJ = $(BONUS:.c=.o)
 
+SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+
+BONUS_SRCS = $(addprefix $(SRC_DIR)/, $(BONUS))
+BONUS_OBJS = $(addprefix $(OBJ_DIR)/, $(BONUS:.c=.o))
 
 all: $(NAME)
 
@@ -35,26 +43,20 @@ so:
 	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRC) $(BONUS)
 	gcc -nostartfiles -shared -o libft.so $(OBJ) $(BONUSOBJ)
 
-$(NAME):	$(OBJ)
+$(NAME): $(OBJS)
 		$(AR) -rcs $(NAME) $(OBJ)
-		
-bonus: $(OBJ) $(BONUSOBJ)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+bonus: $(OBJS) $(BONUS_OBJS)
 		$(AR) -rcs $(NAME) $(OBJ) $(BONUSOBJ)
 
 clean:
-		rm -f $(OBJ) $(BONUSOBJ)
+		rm -rf $(OBJ_DIR)
+
 fclean:	clean
+
 		rm -f $(NAME)
-re: fclean all
-
-#re: fclean $(NAME)
-
-# youpi.c foobar(c) => foobar(obj => pseudo compilation( pas linke entre les fichiers objs)) => youpi.o
-#
-#fichier1.o ... fichierN.o => tout linker => ton binaire
-#
-#fichier.o ... fichierN.o => tout link enssemble => juste deposer une interface
-#
-#.a ajouter a ta compilation ils sont ajout2 a ta stack => doit recopier la memoire pour chaque programe
-#.so pas ajouter a ta stack  => permet a plusieur persone d'utiliser la meme lib
-
+re: clean fclean all
