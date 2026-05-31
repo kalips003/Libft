@@ -13,9 +13,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "libft.h"
 
-#include "libft.h"
 
 char	*ft_move(char *s, char *d, size_t n)
 {
@@ -53,7 +51,6 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 }
 
 /*
-#include "libft.h"
 
 void	ft_move(char *s, char *d, size_t n)
 {

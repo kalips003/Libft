@@ -44,19 +44,19 @@ so:
 	gcc -nostartfiles -shared -o libft.so $(OBJ) $(BONUSOBJ)
 
 $(NAME): $(OBJS)
-		$(AR) -rcs $(NAME) $(OBJ)
+	$(AR) -rcs $(NAME) $(OBJS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 bonus: $(OBJS) $(BONUS_OBJS)
-		$(AR) -rcs $(NAME) $(OBJ) $(BONUSOBJ)
+		$(AR) -rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 clean:
 		rm -rf $(OBJ_DIR)
 
 fclean:	clean
-
 		rm -f $(NAME)
+
 re: clean fclean all

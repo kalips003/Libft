@@ -14,7 +14,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft.h"
+
+#include "../libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
